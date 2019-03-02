@@ -390,7 +390,7 @@ main() {
 		install_golang "$2"
 	elif [[ $cmd == "install_terraform" ]]; then
 		install_terraform
-	elif [[ $cmd == "install_gcp"]]; then
+	elif [[ $cmd == "install_gcp" ]]; then
 		install_gcp
 	else
 		usage
