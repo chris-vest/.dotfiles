@@ -332,7 +332,7 @@ set_config() {
 }
 
 usage() {
-	echo -e "install.sh\\n\\tThis script installs my basic setup for a debian laptop\\n"
+	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
 	echo "  base                                - setup sources & install base pkgs"
 	echo "  basemin                             - setup sources & install base min pkgs"
@@ -395,3 +395,5 @@ main() {
 		usage
 	fi
 }
+
+main "$@"
