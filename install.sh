@@ -99,7 +99,7 @@ basic_apt() {
 		lsof \
 		make \
 		mount \
-		mysql-shell \
+#		mysql-shell \
 		nautilus-dropbox
 		net-tools \
 		neovim \
@@ -334,11 +334,9 @@ set_config() {
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
-	echo "  base                                - setup sources & install base pkgs"
-	echo "  basemin                             - setup sources & install base min pkgs"
-	echo "  graphics {intel, geforce, optimus}  - install graphics drivers"
-	echo "  wm                                  - install window manager/desktop pkgs"
-	echo "  dotfiles                            - get dotfiles"
+	echo "  basic_apt                           - setup sources & install base pkgs"
+	echo "  setup_git                           - setup sources & install base min pkgs"
+	echo "  setup_oh_my_zsh                     - get dotfiles"
 	echo "  vim                                 - install vim specific dotfiles"
 	echo "  golang                              - install golang and packages"
 	echo "  rust                                - install rust"
