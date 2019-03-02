@@ -132,8 +132,6 @@ setup_oh_my_zsh() {
 setup_git() {
 	echo "Git setup"
 
-	ssh-add ~/.ssh/id_rsa
-
 	git config --global core.editor vim
 	git config --global user.name chris-vest
 	git config --global user.email hotdogsandfrenchfries@gmail.com
@@ -146,7 +144,7 @@ install_vim() {
 
 	# install .vim files
 	sudo rm -rf "${HOME}/.vim"
-	git clone --recursive https://github.com:jessfraz/.vim.git "${HOME}/.vim"
+	git clone --recursive git@github.com:jessfraz/.vim.git "${HOME}/.vim"
 	(
 	cd "${HOME}/.vim"
 	make install
