@@ -100,7 +100,7 @@ basic_apt() {
 		make \
 		mount \
 #		mysql-shell \
-		nautilus-dropbox
+		nautilus-dropbox \
 		net-tools \
 		neovim \
 		openvpn \
