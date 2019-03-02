@@ -375,7 +375,7 @@ main() {
 	elif [[ $cmd == "install_1password" ]]; then
 		check_is_sudo
 
-		install_vim
+		install_1password
 	elif [[ $cmd == "install_vault" ]]; then
 		check_is_sudo
 		
