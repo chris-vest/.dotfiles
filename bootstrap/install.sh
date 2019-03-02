@@ -321,7 +321,7 @@ set_config() {
 setup_sudo
 basic_apt
 setup_git
-setup_zsh
+setup_oh_my_zsh
 install_vim
 set_config
 install_dropbox
