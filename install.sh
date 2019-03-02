@@ -99,7 +99,6 @@ basic_apt() {
 		lsof \
 		make \
 		mount \
-#		mysql-shell \
 		nautilus-dropbox \
 		net-tools \
 		neovim \
