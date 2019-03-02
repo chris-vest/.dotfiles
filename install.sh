@@ -1,4 +1,34 @@
 #!/bin/bash
+set -e
+set -o pipefail
+
+# Choose a user account to use for this installation
+get_user() {
+	if [ -z "${TARGET_USER-}" ]; then
+		mapfile -t options < <(find /home/* -maxdepth 0 -printf "%f\\n" -type d)
+		# if there is only one option just use that user
+		if [ "${#options[@]}" -eq "1" ]; then
+			readonly TARGET_USER="${options[0]}"
+			echo "Using user account: ${TARGET_USER}"
+			return
+		fi
+
+		# iterate through the user options and print them
+		PS3='command -v user account should be used? '
+
+		select opt in "${options[@]}"; do
+			readonly TARGET_USER=$opt
+			break
+		done
+	fi
+}
+
+check_is_sudo() {
+	if [ "$EUID" -ne 0 ]; then
+		echo "Please run as root."
+		exit
+	fi
+}
 
 setup_sudo() {
 	# add user to sudoers
@@ -301,14 +331,66 @@ set_config() {
 	sudo cp -sR $(CURDIR)/bootstrap/ /usr/local/bin/
 }
 
-setup_sudo
-basic_apt
-setup_git
-setup_oh_my_zsh
-install_vim
-set_config
-install_1password
-install_vault
-install_terraform
-install_gcp
-install_golang
+usage() {
+	echo -e "install.sh\\n\\tThis script installs my basic setup for a debian laptop\\n"
+	echo "Usage:"
+	echo "  base                                - setup sources & install base pkgs"
+	echo "  basemin                             - setup sources & install base min pkgs"
+	echo "  graphics {intel, geforce, optimus}  - install graphics drivers"
+	echo "  wm                                  - install window manager/desktop pkgs"
+	echo "  dotfiles                            - get dotfiles"
+	echo "  vim                                 - install vim specific dotfiles"
+	echo "  golang                              - install golang and packages"
+	echo "  rust                                - install rust"
+	echo "  scripts                             - install scripts"
+	echo "  dropbear                            - install and configure dropbear initramfs"
+}
+
+main() {
+	local cmd=$1
+
+	if [[ -z "$cmd" ]]; then
+		usage
+		exit 1
+	fi
+
+	if [[ $cmd == "basic_apt" ]]; then
+		check_is_sudo
+		get_user
+
+		basic_apt
+	elif [[ $cmd == "setup_git" ]]; then
+		check_is_sudo
+		get_user
+
+		setup_git
+	elif [[ $cmd == "setup_oh_my_zsh" ]]; then
+		check_is_sudo
+
+		setup_oh_my_zsh
+	elif [[ $cmd == "install_vim" ]]; then
+		check_is_sudo
+
+		install_vim
+	elif [[ $cmd == "set_config" ]]; then
+		check_is_sudo
+
+		set_config
+	elif [[ $cmd == "install_1password" ]]; then
+		check_is_sudo
+
+		install_vim
+	elif [[ $cmd == "install_vault" ]]; then
+		check_is_sudo
+		
+		install_vault
+	elif [[ $cmd == "install_golang" ]]; then
+		install_golang "$2"
+	elif [[ $cmd == "install_terraform" ]]; then
+		install_terraform
+	elif [[ $cmd == "install_gcp"]]; then
+		install_gcp
+	else
+		usage
+	fi
+}
