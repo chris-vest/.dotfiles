@@ -359,6 +359,8 @@ main() {
 		get_user
 
 		basic_apt
+	elif [[ $cmd == "setup_sudo" ]]; then
+		setup_sudo
 	elif [[ $cmd == "setup_git" ]]; then
 		check_is_sudo
 		get_user
