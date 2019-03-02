@@ -305,8 +305,8 @@ install_golang() {
 set_config() {
 	# add aliases for dotfiles
 	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git"); do
-		f=$$(basename $$file)
-		ln -sfn $$file $(HOME)/$$f
+		f=$(basename $file)
+		ln -sfn $$file $(HOME)/$f
 	done
 	
 	mkdir -p $(HOME)/.config/dunst
