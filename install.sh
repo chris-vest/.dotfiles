@@ -13,19 +13,7 @@ setup_sudo() {
 	sudo groupadd docker
 	sudo gpasswd -a "$TARGET_USER" docker
 
-	# add go path to secure path
-	{ \
-		echo -e "Defaults	secure_path=\"/usr/local/go/bin:/home/${TARGET_USER}/.go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools\""; \
-		echo -e 'Defaults	env_keep += "ftp_proxy http_proxy https_proxy no_proxy GOPATH EDITOR"'; \
-		echo -e "${TARGET_USER} ALL=(ALL) NOPASSWD:ALL"; \
-		echo -e "${TARGET_USER} ALL=NOPASSWD: /sbin/ifconfig, /sbin/ifup, /sbin/ifdown, /sbin/ifquery"; \
-	} >> /etc/sudoers
-
-	# setup downloads folder as tmpfs
-	# that way things are removed on reboot
-	# i like things clean but you may not want this
-	mkdir -p "/home/$TARGET_USER/Downloads"
-	echo -e "\\n# tmpfs for downloads\\ntmpfs\\t/home/${TARGET_USER}/Downloads\\ttmpfs\\tnodev,nosuid,size=2G\\t0\\t0" >> /etc/fstab
+	echo -e "${TARGET_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 }
 
 basic_apt() {
@@ -156,11 +144,6 @@ install_vim() {
 		wheel \
 		neovim
 	)
-}
-
-install_dropbox() {
-	cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-	~/.dropbox-dist/dropboxd && exit 0
 }
 
 install_1password() {
@@ -324,7 +307,6 @@ setup_git
 setup_oh_my_zsh
 install_vim
 set_config
-install_dropbox
 install_1password
 install_vault
 install_terraform
