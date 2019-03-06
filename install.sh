@@ -328,6 +328,10 @@ set_config() {
 	sudo cp -sR $(CURDIR)/bootstrap/ /usr/local/bin/
 }
 
+kubernetes() {
+	echo "kubectl stern helm fluxctl kubectx kubens kubectl-aliases minikube"
+}
+
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
@@ -337,8 +341,7 @@ usage() {
 	echo "  vim                                 - install vim specific dotfiles"
 	echo "  golang                              - install golang and packages"
 	echo "  rust                                - install rust"
-	echo "  scripts                             - install scripts"
-	echo "  dropbear                            - install and configure dropbear initramfs"
+	echo "  kubernetes                             - install kubernetes stuff"
 }
 
 main() {
@@ -386,6 +389,8 @@ main() {
 		install_terraform
 	elif [[ $cmd == "install_gcp" ]]; then
 		install_gcp
+	elif [[ $cmd == "kubernetes" ]]; then
+		kubernetes
 	else
 		usage
 	fi
