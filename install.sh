@@ -64,6 +64,8 @@ basic_apt() {
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 
+	sudo add-apt-repository ppa:nathan-renniewaldock/flux
+
 	sudo apt update || true
 	sudo apt -y upgrade
 
@@ -80,6 +82,7 @@ basic_apt() {
 		dnsutils \
 		file \
 		findutils \
+		fluxgui \
 		gcc \
 		git \
 		git-core \
@@ -120,8 +123,6 @@ basic_apt() {
 		--no-install-recommends
 	
 	pip3 install awscli
-
-	sudo snap install kubectl --classic
 }
 
 setup_oh_my_zsh() {
@@ -131,7 +132,6 @@ setup_oh_my_zsh() {
 
 setup_git() {
 	echo "Git setup"
-
 	git config --global core.editor vim
 	git config --global user.name chris-vest
 	git config --global user.email hotdogsandfrenchfries@gmail.com
@@ -225,7 +225,7 @@ install_gcp() {
 install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
-	export GO_SRC=/usr/local/go
+	export GO_SRC=/usr/local/go/bin
 
 	# if we are passing the version
 	if [[ ! -z "$1" ]]; then
@@ -277,6 +277,14 @@ install_golang() {
 
 	/usr/local/go/bin/go get github.com/axw/gocov/gocov
 	/usr/local/go/bin/go get honnef.co/go/tools/cmd/staticcheck
+	
+	# Stern
+	/usr/local/go/bin/go get -u github.com/kardianos/govendor
+	mkdir -p $GOPATH/src/github.com/wercker
+	cd $GOPATH/src/github.com/wercker
+	git clone https://github.com/wercker/stern.git && cd stern
+	govendor sync
+	go install
 
 	# Tools for vimgo.
 	/usr/local/go/bin/go get github.com/jstemmer/gotags
@@ -320,16 +328,21 @@ set_config() {
 	done
 	
 	mkdir -p $(HOME)/.config/dunst
-	ln -snf $(CURDIR)/.config/dunst/dunstrc
+	ln -snf $(CURDIR)/.config/dunst/dunstrc $(HOME)/.config/dunst/dunstrc
 
 	mkdir -p $(HOME)/.i3
-	cp -sR $(CURDIR)/.i3/ $(HOME)/.i3/
+	ln -snf $(CURDIR)/.i3/ $(HOME)/.i3/
 
-	sudo cp -sR $(CURDIR)/bootstrap/ /usr/local/bin/
+	ln -snf $(CURDIR)/bootstrap/ /usr/local/bin/
 }
 
 kubernetes() {
-	echo "kubectl stern helm fluxctl kubectx kubens kubectl-aliases minikube"
+	echo "kubectl helm fluxctl kubectx kubens kubectl-aliases minikube"
+
+	sudo snap install kubectl
+	sudo snap install remmina
+
+
 }
 
 usage() {
