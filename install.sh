@@ -189,7 +189,7 @@ install_1password() {
 
 install_light() {
 	echo "Install Light"
-	mkdir ~/projects
+	mkdir -p ~/projects
 	pushd ~/projects
 	git clone https://github.com/haikarainen/light.git
 	pushd light
@@ -260,7 +260,8 @@ install_gcp() {
 install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
-	export GO_SRC=/usr/local/go/bin
+	export GOPATH="/home/$USER/go"
+	export GO_SRC=$GOPATH/src
 
 	# if we are passing the version
 	if [[ ! -z "$1" ]]; then
@@ -284,8 +285,6 @@ install_golang() {
 	sudo chown -R "${user}" /usr/local/go/pkg
 	CGO_ENABLED=0 /usr/local/go/bin/go install -a -installsuffix cgo std
 	)
-
-	GOPATH="/home/$USER/go"
 
 	# get commandline tools
 	(
