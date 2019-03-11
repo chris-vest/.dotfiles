@@ -135,6 +135,11 @@ setup_git() {
 	git config --global core.editor vim
 	git config --global user.name chris-vest
 	git config --global user.email hotdogsandfrenchfries@gmail.com
+
+	# create subshell to add ssh key
+	(
+		ssh-add $HOME/.ssh/id_rsa
+	)
 }
 
 install_vim() {
@@ -176,9 +181,12 @@ install_vim() {
 install_1password() {
 	arm=$(dpkg --print-architecture)
 	curl -o /tmp/op.zip https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/op_linux_${arm}_v0.5.5.zip
-	unzip /tmp/op.zip /tmp/
+	pushd /tmp
+	unzip /tmp/op.zip
 	chmod u+x /tmp/op
 	sudo mv /tmp/op /usr/local/bin/
+	popd
+	op
 }
 
 install_light() {
@@ -393,10 +401,13 @@ main() {
 		check_is_sudo
 
 		set_config
-	elif [[ $cmd == "install_1password" ]]; then
+	elif [[ $cmd == "install_stuff" ]]; then
 		check_is_sudo
-
 		install_1password
+		install_light
+		install_terraform
+		install_vault
+		install_gcp
 	elif [[ $cmd == "install_vault" ]]; then
 		check_is_sudo
 		
