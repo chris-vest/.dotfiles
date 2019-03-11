@@ -191,27 +191,30 @@ install_1password() {
 install_light() {
 	echo "Install Light"
 	mkdir ~/projects
-	cd ~/projects
+	pushd ~/projects
 	git clone https://github.com/haikarainen/light.git
-	cd light
+	pushd light
 	./autogen.sh
 	./configure && make
 	sudo make install
+	popd
 }
 
 install_vault() {
 	mkdir -p ~/go/src/github.com/hashicorp && cd $_
     git clone https://github.com/hashicorp/vault.git
-    cd vault
+    cd ~/go/src/github.com/hashicorp/vault
 	make bootstrap
 	make dev
 }
 
 install_terraform() {
 	curl -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
-	unzip /tmp/terraform.zip /tmp/
+	pushd /tmp
+	unzip /tmp/terraform.zip
 	chmod u+x /tmp/terraform
 	sudo mv /tmp/terraform /usr/local/bin/
+	popd
 }
 
 install_vscodium() {
@@ -401,14 +404,13 @@ main() {
 
 		set_config
 	elif [[ $cmd == "install_stuff" ]]; then
-		check_is_sudo
+		check_is_sudo 
+		install_golang "$2"
 		install_1password
 		install_light
-		install_terraform
 		install_vault
+		install_terraform
 		install_gcp
-	elif [[ $cmd == "install_golang" ]]; then
-		install_golang "$2"
 	elif [[ $cmd == "install_terraform" ]]; then
 		install_terraform
 	elif [[ $cmd == "install_gcp" ]]; then
