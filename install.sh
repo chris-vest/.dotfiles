@@ -207,6 +207,11 @@ install_terraform() {
 	sudo mv /tmp/terraform /usr/local/bin/
 }
 
+install_vscodium() {
+	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.32.1/vscodium_1.32.1-1552067474_amd64.deb
+	sudo apt install -y /tmp/vscodium.deb
+}
+
 install_gcp() {
 	# Create environment variable for correct distribution
 	export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
