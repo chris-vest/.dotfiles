@@ -186,7 +186,6 @@ install_1password() {
 	chmod u+x /tmp/op
 	sudo mv /tmp/op /usr/local/bin/
 	popd
-	op
 }
 
 install_light() {
@@ -408,10 +407,6 @@ main() {
 		install_terraform
 		install_vault
 		install_gcp
-	elif [[ $cmd == "install_vault" ]]; then
-		check_is_sudo
-		
-		install_vault
 	elif [[ $cmd == "install_golang" ]]; then
 		install_golang "$2"
 	elif [[ $cmd == "install_terraform" ]]; then
