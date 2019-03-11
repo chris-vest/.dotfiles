@@ -125,7 +125,7 @@ basic_apt() {
 	pip3 install awscli
 }
 
-setup_oh_my_zsh() {
+oh_my_zsh() {
 	wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 	chsh -s `which zsh`
 }
@@ -357,10 +357,10 @@ install_golang() {
 
 set_config() {
 	# add aliases for dotfiles
-	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git"); do
-		f=$(basename $file)
-		ln -sfn $$file $(HOME)/$f
-	done
+	# for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git"); do
+	# 	f=$(basename $file)
+	# 	ln -sfn $$file $(HOME)/$f
+	# done
 	
 	mkdir -p $(HOME)/.config/dunst
 	ln -snf $(CURDIR)/.config/dunst/dunstrc $(HOME)/.config/dunst/dunstrc
@@ -384,12 +384,9 @@ usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
 	echo "  basic_apt                           - setup sources & install base pkgs"
-	echo "  setup_git                           - setup sources & install base min pkgs"
-	echo "  setup_oh_my_zsh                     - get dotfiles"
+	echo "  oh_my_zsh	                        - get dotfiles"
 	echo "  vim                                 - install vim specific dotfiles"
 	echo "  golang                              - install golang and packages"
-	echo "  rust                                - install rust"
-	echo "  kubernetes                             - install kubernetes stuff"
 }
 
 main() {
@@ -407,11 +404,11 @@ main() {
 		setup_git
 		basic_apt
 		setup_sudo
-	elif [[ $cmd == "setup_oh_my_zsh" ]]; then
+	elif [[ $cmd == "oh_my_zsh" ]]; then
 		check_is_sudo
 
-		setup_oh_my_zsh
-	elif [[ $cmd == "install_vim" ]]; then
+		oh_my_zsh
+	elif [[ $cmd == "vim" ]]; then
 		check_is_sudo
 
 		install_vim
