@@ -148,10 +148,9 @@ install_vim() {
 	cd "$HOME"
 
 	# install .vim files
-	sudo rm -rf "${HOME}/.vim"
-	git clone --recursive git@github.com:jessfraz/.vim.git "${HOME}/.vim"
+	git clone --recursive git@github.com:jessfraz/.vim.git "${HOME}/.config/nvim"
 	(
-	cd "${HOME}/.vim"
+	cd "${HOME}/.config/nvim"
 	make install
 	)
 
@@ -220,6 +219,27 @@ install_terraform() {
 install_vscodium() {
 	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.32.1/vscodium_1.32.1-1552067474_amd64.deb
 	sudo apt install -y /tmp/vscodium.deb
+
+	# get dependencies for vscode-go
+	usr/local/go/bin/go get -u -v github.com/ramya-rao-a/go-outline
+	usr/local/go/bin/go get -u -v github.com/acroca/go-symbols
+	usr/local/go/bin/go get -u -v github.com/mdempsky/gocode
+	usr/local/go/bin/go get -u -v github.com/rogpeppe/godef
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/godoc
+	usr/local/go/bin/go get -u -v github.com/zmb3/gogetdoc
+	usr/local/go/bin/go get -u -v golang.org/x/lint/golint
+	usr/local/go/bin/go get -u -v github.com/fatih/gomodifytags
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/gorename
+	usr/local/go/bin/go get -u -v sourcegraph.com/sqs/goreturns
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/goimports
+	usr/local/go/bin/go get -u -v github.com/cweill/gotests/...
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/guru
+	usr/local/go/bin/go get -u -v github.com/josharian/impl
+	usr/local/go/bin/go get -u -v github.com/haya14busa/goplay/cmd/goplay
+	usr/local/go/bin/go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
+	usr/local/go/bin/go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+	usr/local/go/bin/go get -u -v github.com/alecthomas/gometalinter
+	gometalinter --install
 }
 
 install_gcp() {
@@ -384,13 +404,9 @@ main() {
 		check_is_sudo
 		get_user
 
+		setup_git
 		basic_apt
 		setup_sudo
-	elif [[ $cmd == "setup_git" ]]; then
-		check_is_sudo
-		get_user
-
-		setup_git
 	elif [[ $cmd == "setup_oh_my_zsh" ]]; then
 		check_is_sudo
 
@@ -410,11 +426,6 @@ main() {
 		install_vault
 		install_terraform
 		install_gcp
-	elif [[ $cmd == "install_terraform" ]]; then
-		install_terraform
-	elif [[ $cmd == "install_gcp" ]]; then
-		install_gcp
-	elif [[ $cmd == "kubernetes" ]]; then
 		kubernetes
 	else
 		usage
