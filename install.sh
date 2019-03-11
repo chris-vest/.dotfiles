@@ -262,10 +262,10 @@ install_golang() {
 	local user="$USER"
 	# rebuild stdlib for faster builds
 	sudo chown -R "${user}" /usr/local/go/pkg
-	CGO_ENABLED=0 /usr/local/bin/go install -a -installsuffix cgo std
+	CGO_ENABLED=0 /usr/local/go/bin/go install -a -installsuffix cgo std
 	)
 
-	GOPATH="/home/crystal/go"
+	GOPATH="/home/$USER/go"
 
 	# get commandline tools
 	(
@@ -404,7 +404,6 @@ main() {
 
 		set_config
 	elif [[ $cmd == "install_stuff" ]]; then
-		check_is_sudo 
 		install_golang "$2"
 		install_1password
 		install_light
