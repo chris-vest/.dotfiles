@@ -88,6 +88,7 @@ basic_apt() {
 		git-core \
 		gnupg \
 		gnupg2 \
+		go-dep \
 		grep \
 		gzip \
 		hostname \
@@ -219,27 +220,6 @@ install_terraform() {
 install_vscodium() {
 	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.32.1/vscodium_1.32.1-1552067474_amd64.deb
 	sudo apt install -y /tmp/vscodium.deb
-
-	# get dependencies for vscode-go
-	usr/local/go/bin/go get -u -v github.com/ramya-rao-a/go-outline
-	usr/local/go/bin/go get -u -v github.com/acroca/go-symbols
-	usr/local/go/bin/go get -u -v github.com/mdempsky/gocode
-	usr/local/go/bin/go get -u -v github.com/rogpeppe/godef
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/godoc
-	usr/local/go/bin/go get -u -v github.com/zmb3/gogetdoc
-	usr/local/go/bin/go get -u -v golang.org/x/lint/golint
-	usr/local/go/bin/go get -u -v github.com/fatih/gomodifytags
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/gorename
-	usr/local/go/bin/go get -u -v sourcegraph.com/sqs/goreturns
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/goimports
-	usr/local/go/bin/go get -u -v github.com/cweill/gotests/...
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/guru
-	usr/local/go/bin/go get -u -v github.com/josharian/impl
-	usr/local/go/bin/go get -u -v github.com/haya14busa/goplay/cmd/goplay
-	usr/local/go/bin/go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
-	usr/local/go/bin/go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
-	usr/local/go/bin/go get -u -v github.com/alecthomas/gometalinter
-	gometalinter --install
 }
 
 install_gcp() {
@@ -311,6 +291,28 @@ install_golang() {
 
 	/usr/local/go/bin/go get github.com/axw/gocov/gocov
 	/usr/local/go/bin/go get honnef.co/go/tools/cmd/staticcheck
+
+	# get dependencies for vscode-go
+	usr/local/go/bin/go get -u -v github.com/ramya-rao-a/go-outline
+	usr/local/go/bin/go get -u -v github.com/acroca/go-symbols
+	usr/local/go/bin/go get -u -v github.com/mdempsky/gocode
+	usr/local/go/bin/go get -u -v github.com/rogpeppe/godef
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/godoc
+	usr/local/go/bin/go get -u -v github.com/zmb3/gogetdoc
+	usr/local/go/bin/go get -u -v golang.org/x/lint/golint
+	usr/local/go/bin/go get -u -v github.com/fatih/gomodifytags
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/gorename
+	usr/local/go/bin/go get -u -v sourcegraph.com/sqs/goreturns
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/goimports
+	usr/local/go/bin/go get -u -v github.com/cweill/gotests/...
+	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/guru
+	usr/local/go/bin/go get -u -v github.com/josharian/impl
+	usr/local/go/bin/go get -u -v github.com/haya14busa/goplay/cmd/goplay
+	usr/local/go/bin/go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
+	usr/local/go/bin/go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+	usr/local/go/bin/go get -u -v github.com/alecthomas/gometalinter
+	curl -L https://git.io/vp6lP | sh
+	gometalinter --install
 	
 	# Stern
 	/usr/local/go/bin/go get -u github.com/kardianos/govendor
