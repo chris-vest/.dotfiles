@@ -141,9 +141,9 @@ setup_git() {
 	git config --global user.email hotdogsandfrenchfries@gmail.com
 
 	# create subshell to add ssh key
-	(
-		ssh-add $HOME/.ssh/id_rsa
-	)
+	# (
+	# 	ssh-add $HOME/.ssh/id_rsa
+	# )
 }
 
 setup_vim() {
