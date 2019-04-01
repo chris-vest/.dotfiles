@@ -123,7 +123,7 @@ basic_apt() {
 		zsh \
 		--no-install-recommends
 	
-	pip3 install-U \
+	pip3 install -U \
 		awscli \
 		setuptools \
 		wheel
