@@ -332,6 +332,8 @@ install_golang() {
 
 	# symlink weather binary for motd
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
+
+	echo "export PATH=$PATH:/usr/local/go/bin/" >> $HOME/.bashrc
 }
 
 set_config() {
