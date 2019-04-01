@@ -407,8 +407,6 @@ main() {
 		check_is_sudo
 		setup_vim
 	elif [[ $cmd == "set_config" ]]; then
-		check_is_sudo
-
 		set_config
 	else
 		usage
