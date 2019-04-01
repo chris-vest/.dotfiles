@@ -367,9 +367,10 @@ usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
 	echo "  basic_apt                           - setup sources & install base pkgs"
-	echo "  oh_my_zsh	                        - get dotfiles"
-	echo "  vim                                 - install vim specific dotfiles"
-	echo "  golang                              - install golang and packages"
+	echo "  install_stuff                       - bits and pieces"
+	echo "  oh_my_zsh	                        - install oh-my-zsh; change shell to ZSH"
+	echo "  nvim                                - install vim specific dotfiles"
+	echo "  set_config                          - set configuration"
 }
 
 main() {
@@ -387,18 +388,6 @@ main() {
 		setup_git
 		basic_apt
 		setup_sudo
-	elif [[ $cmd == "oh_my_zsh" ]]; then
-		check_is_sudo
-
-		oh_my_zsh
-	elif [[ $cmd == "vim" ]]; then
-		check_is_sudo
-
-		install_vim
-	elif [[ $cmd == "set_config" ]]; then
-		check_is_sudo
-
-		set_config
 	elif [[ $cmd == "install_stuff" ]]; then
 		check_is_sudo
 		install_golang "$2"
@@ -408,6 +397,17 @@ main() {
 		install_terraform
 		install_gcp
 		kubernetes
+	elif [[ $cmd == "oh_my_zsh" ]]; then
+		check_is_sudo
+
+		oh_my_zsh
+	elif [[ $cmd == "nvim" ]]; then
+		check_is_sudo
+		setup_vim
+	elif [[ $cmd == "set_config" ]]; then
+		check_is_sudo
+
+		set_config
 	else
 		usage
 	fi
