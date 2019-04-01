@@ -123,7 +123,10 @@ basic_apt() {
 		zsh \
 		--no-install-recommends
 	
-	pip3 install awscli
+	pip3 install-U \
+		awscli \
+		setuptools \
+		wheel
 }
 
 oh_my_zsh() {
@@ -143,18 +146,7 @@ setup_git() {
 	)
 }
 
-install_vim() {
-	# create subshell
-	(
-	cd "$HOME"
-
-	# install .vim files
-	git clone --recursive git@github.com:jessfraz/.vim.git "${HOME}/.config/nvim"
-	(
-	cd "${HOME}/.config/nvim"
-	make install
-	)
-
+setup_vim() {
 	# update alternatives to neovim
 	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
 	sudo update-alternatives --config vi
@@ -162,20 +154,6 @@ install_vim() {
 	sudo update-alternatives --config vim
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
 	sudo update-alternatives --config editor
-
-	# install things needed for deoplete for vim
-	sudo apt update || true
-
-	sudo apt install -y \
-		python3-pip \
-		python3-setuptools \
-		--no-install-recommends
-
-	pip3 install -U \
-		setuptools \
-		wheel \
-		neovim
-	)
 }
 
 install_1password() {
@@ -363,13 +341,17 @@ set_config() {
 	# 	ln -sfn $$file $(HOME)/$f
 	# done
 	
-	mkdir -p $(HOME)/.config/dunst
-	ln -snf $(CURDIR)/.config/dunst/dunstrc $(HOME)/.config/dunst/dunstrc
+	cp -rs .config/nvim/ ${HOME}/.config/
 
-	mkdir -p $(HOME)/.i3
-	ln -snf $(CURDIR)/.i3/ $(HOME)/.i3/
+	mkdir -p ${HOME}/.config/dunst
+	ln -snf ${CURDIR}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 
-	ln -snf $(CURDIR)/bootstrap/ /usr/local/bin/
+	mkdir -p ${HOME}/.config/dunst
+
+	mkdir -p ${HOME}/.i3
+	ln -snf ${CURDIR}/.i3/ ${HOME}/.i3/
+
+	ln -snf ${CURDIR}/bootstrap/ /usr/local/bin/
 }
 
 kubernetes() {
@@ -418,6 +400,7 @@ main() {
 
 		set_config
 	elif [[ $cmd == "install_stuff" ]]; then
+		check_is_sudo
 		install_golang "$2"
 		install_1password
 		install_light

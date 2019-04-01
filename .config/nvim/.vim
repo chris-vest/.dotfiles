@@ -1,0 +1,1 @@
+/home/crystal/.vim
