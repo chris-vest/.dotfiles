@@ -147,6 +147,7 @@ setup_git() {
 }
 
 setup_vim() {
+	cp -R $(pwd)/.config/nvim/ ~/.config/
 	# update alternatives to neovim
 	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
 	sudo update-alternatives --config vi
@@ -154,7 +155,6 @@ setup_vim() {
 	sudo update-alternatives --config vim
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
 	sudo update-alternatives --config editor
-	cp -R $(pwd)/nvim/ ~/
 }
 
 install_1password() {
