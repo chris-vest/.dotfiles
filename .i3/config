@@ -12,6 +12,9 @@
 # Set background to solid black
 exec --no-startup-id xsetroot -solid "#000000"
 
+# Start network-manager
+exec --no-startup-id nm-applet
+
 # Start Dunst using custom config
 exec killall -q dunst
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
@@ -32,12 +35,16 @@ exec dconf write /org/gnome/desktop/interface/cursor-size 9
 
 # Set default workspaces
 for_window [class="KeePassX"] move to workspace 1
+for_window [class="Navigator"] move to workspace 1
+for_window [class="Firefox"] move to workspace 1
+for_window [class="slack"] move to workspace 3
 for_window [class="Slack"] move to workspace 3
 for_window [class="VSCodium"] move to workspace 5
 for_window [class="Spotify"] move to workspace 8
 for_window [class="Vivaldi"] move to workspace 9
 for_window [class="Terminal"] move to workspace 10
-for_window [class="gnome-terminal"] move to workspace 10
+for_window [class="gnome-terminal-server"] move to workspace 10
+for_window [class="Gnome-terminal"] move to workspace 10
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -222,6 +229,9 @@ bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle-mu
 
 # Calendar
 bindsym Mod4+p exec zenity --calendar
+
+# Screenshot
+bindsym Mod4+Print exec gnome-screenshot -i
 #######################################################################
 
 # Start i3bar to display a workspace bar (plus the system information i3status
