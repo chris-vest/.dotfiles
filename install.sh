@@ -349,6 +349,8 @@ set_config() {
 	cp -R .i3 ~/
 
 	cp .tmux.conf ~/
+
+	cp -R .oh-my-zsh ~/
 	cp .zshrc ~/
 }
 
