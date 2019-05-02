@@ -154,6 +154,7 @@ setup_vim() {
 	sudo update-alternatives --config vim
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
 	sudo update-alternatives --config editor
+	cp -R $(pwd)/nvim/ ~/
 }
 
 install_1password() {
@@ -342,15 +343,11 @@ set_config() {
 	# 	f=$(basename $file)
 	# 	ln -sfn $$file $(HOME)/$f
 	# done
-	
-	cp -rs .config/nvim/ ${HOME}/.config/
 
-	mkdir -p ${HOME}/.config/dunst
+	mkdir -p ${HOME}/.config/dunst || :
 	ln -snf ${CURDIR}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 
-	mkdir -p ${HOME}/.config/dunst
-
-	mkdir -p ${HOME}/.i3
+	mkdir -p ${HOME}/.i3 || :
 	ln -snf ${CURDIR}/.i3/ ${HOME}/.i3/
 
 	ln -snf ${CURDIR}/bootstrap/ /usr/local/bin/
@@ -369,7 +366,7 @@ usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
 	echo "  basic_apt                           - setup sources & install base pkgs"
-	echo "  install_stuff                       - bits and pieces"
+	echo "  install_work                        - bits and pieces"
 	echo "  oh_my_zsh	                        - install oh-my-zsh; change shell to ZSH"
 	echo "  nvim                                - install vim specific dotfiles"
 	echo "  set_config                          - set configuration"
@@ -390,7 +387,7 @@ main() {
 		setup_git
 		basic_apt
 		setup_sudo
-	elif [[ $cmd == "install_stuff" ]]; then
+	elif [[ $cmd == "install_work" ]]; then
 		check_is_sudo
 		install_golang "$2"
 		install_1password
