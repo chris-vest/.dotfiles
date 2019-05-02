@@ -344,13 +344,12 @@ set_config() {
 	# 	ln -sfn $$file $(HOME)/$f
 	# done
 
-	mkdir -p ${HOME}/.config/dunst || :
-	ln -snf ${CURDIR}/.config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
+	cp -R .config/ ~/
 
-	mkdir -p ${HOME}/.i3 || :
-	ln -snf ${CURDIR}/.i3/ ${HOME}/.i3/
+	cp -R .i3 ~/
 
-	ln -snf ${CURDIR}/bootstrap/ /usr/local/bin/
+	cp .tmux.conf ~/
+	cp .zshrc ~/
 }
 
 kubernetes() {
@@ -358,8 +357,6 @@ kubernetes() {
 
 	sudo snap install kubectl
 	sudo snap install remmina
-
-
 }
 
 usage() {
