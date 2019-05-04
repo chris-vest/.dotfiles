@@ -1,0 +1,18 @@
+pane	0	1	:vault	0	:-	1	:/tmp	1	zsh	:
+pane	0	1	:vault	0	:-	2	:/home/crystal	0	zsh	:
+pane	0	2	:zsh	1	:*Z	1	:/home/crystal	0	zsh	:
+pane	0	2	:zsh	1	:*Z	2	:/home/crystal/projects/.dotfiles	0	zsh	:
+pane	0	2	:zsh	1	:*Z	3	:/home/crystal/projects/.dotfiles	1	vim	:vim install.sh
+pane	0	2	:zsh	1	:*Z	4	:/home/crystal	0	zsh	:
+pane	0	2	:zsh	1	:*Z	5	:/home/crystal	0	zsh	:
+pane	3	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	4	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	5	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	6	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+window	0	1	0	:-	600f,272x68,0,0[272x33,0,0,1,272x34,0,34,2]
+window	0	2	1	:*Z	f6a9,238x56,0,0[238x4,0,0,3,238x23,0,5{119x23,0,5,4,118x23,120,5,6},238x27,0,29{119x27,0,29,7,118x27,120,29,8}]
+window	3	1	1	:*	d166,272x68,0,0,9
+window	4	1	1	:*	68df,272x68,0,0,10
+window	5	1	1	:*	68e0,272x68,0,0,11
+window	6	1	1	:*	68e1,272x68,0,0,12
+state	0	3

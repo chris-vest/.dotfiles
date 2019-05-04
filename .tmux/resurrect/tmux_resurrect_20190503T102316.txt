@@ -1,0 +1,17 @@
+pane	0	1	:zsh	1	:*	1	:/home/crystal	0	stern	:stern -n strimzi flux
+pane	0	1	:zsh	1	:*	2	:/home/crystal	1	zsh	:
+pane	0	1	:zsh	1	:*	3	:/home/crystal	0	watch	:watch kubectl get --namespace strimzi kafkatopics
+pane	0	2	:zsh	0	:-	1	:/home/crystal	1	zsh	:
+pane	3	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	4	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	5	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	6	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	8	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+window	0	1	1	:*	79c8,238x56,0,0{119x56,0,0[119x28,0,0,1,119x27,0,29,14],118x56,120,0,13}
+window	0	2	0	:-	c964,238x56,0,0,7
+window	3	1	1	:*	c965,238x56,0,0,8
+window	4	1	1	:*	c966,238x56,0,0,9
+window	5	1	1	:*	64df,238x56,0,0,10
+window	6	1	1	:*	64e0,238x56,0,0,11
+window	8	1	1	:*	64e1,238x56,0,0,12
+state	0	6

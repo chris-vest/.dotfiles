@@ -1,0 +1,21 @@
+pane	0	1	:zsh	1	:*M	1	:/home/crystal	1	stern	:stern msk-schema
+pane	0	1	:zsh	1	:*M	2	:/home/crystal	0	zsh	:
+pane	0	1	:zsh	1	:*M	3	:/home/crystal	0	watch	:watch kubectl get pods
+pane	0	1	:zsh	1	:*M	4	:/home/crystal	0	stern	:stern -n strimzi msk-connect
+pane	0	1	:zsh	1	:*M	5	:/home/crystal	0	watch	:watch kubectl get kafkatopics
+pane	0	2	:zsh	0	:	1	:/home/crystal/projects	1	zsh	:
+pane	0	3	:[tmux]	0	:-	1	:/home/crystal	1	kubectl	:/snap/kubectl/922/kubectl exec -i -t kafkacat-657c84798-j7q6p /bin/bash
+pane	3	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	4	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	5	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	6	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	8	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+window	0	1	1	:*M	1194,238x56,0,0{119x56,0,0[119x17,0,0,1,119x19,0,18,16,119x18,0,38,18],118x56,120,0[118x17,120,0,13,118x38,120,18,15]}
+window	0	2	0	:	c964,238x56,0,0,7
+window	0	3	0	:-	64e6,238x56,0,0,17
+window	3	1	1	:*	c965,238x56,0,0,8
+window	4	1	1	:*	c966,238x56,0,0,9
+window	5	1	1	:*	64df,238x56,0,0,10
+window	6	1	1	:*	64e0,238x56,0,0,11
+window	8	1	1	:*	64e1,238x56,0,0,12
+state	0	6

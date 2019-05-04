@@ -1,0 +1,12 @@
+pane	0	1	:vault	1	:*	1	:/tmp	1	zsh	:
+pane	0	1	:vault	1	:*	2	:/home/crystal	0	zsh	:
+pane	0	2	:zsh	0	:-	1	:/home/crystal	1	zsh	:
+pane	3	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	5	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	6	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+window	0	1	1	:*	f3cd,238x56,0,0[238x27,0,0,1,238x28,0,28,2]
+window	0	2	0	:-	c960,238x56,0,0,3
+window	3	1	1	:*	c961,238x56,0,0,4
+window	5	1	1	:*	c962,238x56,0,0,5
+window	6	1	1	:*	c963,238x56,0,0,6
+state	0	6
