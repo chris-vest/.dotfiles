@@ -58,13 +58,16 @@ basic_apt() {
 		dirmngr \
 		gnupg2 \
 		lsb-release \
+		software-properties-common \
 		--no-install-recommends
 
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 
+	sudo add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 	sudo add-apt-repository ppa:nathan-renniewaldock/flux
+	sudo add-apt-repository ppa:neovim-ppa/stable
 
 	sudo apt update || true
 	sudo apt -y upgrade
@@ -107,6 +110,9 @@ basic_apt() {
 		net-tools \
 		neovim \
 		openvpn \
+		python-dev \
+		python-pip \
+		python3-dev \
 		python3-pip \
 		python3-setuptools \
 		ssh \
@@ -147,7 +153,6 @@ setup_git() {
 }
 
 setup_vim() {
-	cp -R $(pwd)/.config/nvim/ ~/.config/
 	# update alternatives to neovim
 	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
 	sudo update-alternatives --config vi
@@ -343,6 +348,10 @@ set_config() {
 	# 	f=$(basename $file)
 	# 	ln -sfn $$file $(HOME)/$f
 	# done
+
+	mkdir -p .config/dunst || :
+	mkdir -p .config/nvim || :
+	mkdir -p .oh-my-zsh || :
 
 	cp -R .config/ ~/
 
