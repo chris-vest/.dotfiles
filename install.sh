@@ -400,7 +400,7 @@ main() {
 
 		oh_my_zsh
 	elif [[ $cmd == "nvim" ]]; then
-		check_is_sudo
+		#check_is_sudo
 		setup_vim
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
