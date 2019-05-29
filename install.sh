@@ -400,7 +400,6 @@ main() {
 	if [[ $cmd == "basic_apt" ]]; then
 		check_is_sudo
 		get_user
-
 		setup_git
 		basic_apt
 		setup_sudo
@@ -413,20 +412,19 @@ main() {
 		install_terraform
 		install_gcp
 		kubernetes
+	elif [[ $cmd == "install_vscodium" ]]; then
+		install_vscodium
+	elif [[ $cmd == "golang" ]]; then
+		get_user
+		install_golang "$2"
 	elif [[ $cmd == "oh_my_zsh" ]]; then
 		check_is_sudo
-
 		oh_my_zsh
 	elif [[ $cmd == "nvim" ]]; then
 		#check_is_sudo
 		setup_vim
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
-	elif [[ $cmd == "golang" ]]; then
-		get_user
-		install_golang "$2"
-	elif [[ $cmd == "install_vscodium" ]]; then
-		install_vscodium
 	else
 		usage
 	fi
