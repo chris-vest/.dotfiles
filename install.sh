@@ -383,7 +383,8 @@ usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
 	echo "  basic_apt                           - setup sources & install base pkgs"
-	echo "  install_work                        - bits and pieces"
+	echo "  install_vscodium                    - install vscodium"
+	echo "  install_work                        - bits and pieces for work"
 	echo "  oh_my_zsh	                        - install oh-my-zsh; change shell to ZSH"
 	echo "  nvim                                - install vim specific dotfiles"
 	echo "  set_config                          - set configuration"
@@ -418,7 +419,6 @@ main() {
 		get_user
 		install_golang "$2"
 	elif [[ $cmd == "oh_my_zsh" ]]; then
-		check_is_sudo
 		oh_my_zsh
 	elif [[ $cmd == "nvim" ]]; then
 		#check_is_sudo
