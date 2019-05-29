@@ -41,7 +41,9 @@ setup_sudo() {
 
 	# create docker group
 	sudo groupadd docker
+	sudo usermod -aG docker $TARGET_USER
 	sudo gpasswd -a "$TARGET_USER" docker
+	sudo - $TARGET_USER
 
 	echo -e "${TARGET_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 }
@@ -128,11 +130,18 @@ basic_apt() {
 		zip \
 		zsh \
 		--no-install-recommends
-	
+
 	pip3 install -U \
 		awscli \
 		setuptools \
 		wheel
+
+	# NeoVim bits
+	pip3 install --user \
+		pynvim
+
+	pip install --user --upgrade \
+		pynvim
 }
 
 oh_my_zsh() {
@@ -225,7 +234,7 @@ install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
 	export GOPATH="/home/$USER/go"
-	export GO_SRC=$GOPATH/src
+	export GO_SRC=/usr/local/go
 
 	# if we are passing the version
 	if [[ ! -z "$1" ]]; then
@@ -413,6 +422,11 @@ main() {
 		setup_vim
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
+	elif [[ $cmd == "golang" ]]; then
+		get_user
+		install_golang "$2"
+	elif [[ $cmd == "install_vscodium" ]]; then
+		install_vscodium
 	else
 		usage
 	fi
