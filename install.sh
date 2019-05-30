@@ -144,7 +144,7 @@ basic_apt() {
 		pynvim
 }
 
-oh_my_zsh() {
+zsh() {
 	wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 	sudo chsh -s `which zsh`
 }
@@ -345,6 +345,11 @@ install_golang() {
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
 }
 
+# install rust
+install_rust() {
+	curl https://sh.rustup.rs -sSf | sh
+}
+
 set_config() {
 	# add aliases for dotfiles
 	# for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git"); do
@@ -380,12 +385,14 @@ kubernetes() {
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
-	echo "  basic_apt                           - setup sources & install base pkgs"
-	echo "  install_vscodium                    - install vscodium"
-	echo "  install_work                        - bits and pieces for work"
-	echo "  oh_my_zsh	                        - install oh-my-zsh; change shell to ZSH"
-	echo "  nvim                                - install vim specific dotfiles"
+	echo "  base                	            - setup sources & install base pkgs"
+	echo "  tools		                        - bits and pieces for work"
+	echo "  vscodium    		                - install vscodium"
+	echo "  golang	    		                - install golang"
+	echo "  rust	    		                - install golang"
+	echo "  zsh	      		                    - install oh-my-zsh; change shell to ZSH"
 	echo "  set_config                          - set configuration"
+	echo "  nvim                                - install vim specific dotfiles; run this after set_config!"
 }
 
 main() {
@@ -396,26 +403,27 @@ main() {
 		exit 1
 	fi
 
-	if [[ $cmd == "basic_apt" ]]; then
+	if [[ $cmd == "base" ]]; then
 		check_is_sudo
 		get_user
 		setup_git
 		basic_apt
 		setup_sudo
-	elif [[ $cmd == "install_work" ]]; then
+	elif [[ $cmd == "tools" ]]; then
 		check_is_sudo
 		install_light
 		install_vault
 		install_terraform
 		install_gcp
 		kubernetes
-	elif [[ $cmd == "install_vscodium" ]]; then
+	elif [[ $cmd == "vscodium" ]]; then
 		install_vscodium
 	elif [[ $cmd == "golang" ]]; then
-		# get_user
 		install_golang "$2"
-	elif [[ $cmd == "oh_my_zsh" ]]; then
-		oh_my_zsh
+	elif [[ $cmd == "rust" ]]; then
+		install_rust
+	elif [[ $cmd == "zsh" ]]; then
+		zsh
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
 	elif [[ $cmd == "nvim" ]]; then
