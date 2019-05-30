@@ -169,6 +169,11 @@ setup_vim() {
 	sudo update-alternatives --config vim
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
 	sudo update-alternatives --config editor
+
+	cd ${HOME}/.config
+	git clone --recursive https://github.com/chris-vest/.vim.git nvim
+	cd nvim
+	git submodule update --init
 }
 
 install_1password() {
@@ -359,16 +364,20 @@ set_config() {
 	# done
 
 	mkdir -p .config/dunst || :
-	mkdir -p .config/nvim || :
+
 	mkdir -p .oh-my-zsh || :
 
-	cp -R .config/ ~/
+	cp -R .config/dunst ~/.config/
 
 	cp -R .i3 ~/
 
+	cp -R .urxvt ~/
+
 	cp .tmux.conf ~/
 
-	cp -R .oh-my-zsh ~/
+	cp .Xresources ~/
+
+	cp .oh-my-zsh/custom/themes/crystal.zsh-theme ~/.oh-my-zsh/custom/themes/crystal.zsh-theme
 	cp .zshrc ~/
 }
 
