@@ -27,11 +27,14 @@ exec --no-startup-id dropbox start
 exec killall -q flux
 exec --no-startup-id fluxgui
 
+# Handle screen blanking
+exec --no-startup-id xset -dpms s off s noblank s 0 0 s noexpose
+
 # Reset mouse size
-exec killall -q xrdb
-exec xrdb ~/.Xresources
-exec gsettings set org.gnome.desktop.interface cursor-size 9
-exec dconf write /org/gnome/desktop/interface/cursor-size 9
+# exec killall -q xrdb
+# exec xrdb ~/.Xresources
+# exec gsettings set org.gnome.desktop.interface cursor-size 9
+# exec dconf write /org/gnome/desktop/interface/cursor-size 9
 
 # Set default workspaces
 for_window [class="KeePassX"] move to workspace 1
@@ -42,9 +45,8 @@ for_window [class="Slack"] move to workspace 3
 for_window [class="VSCodium"] move to workspace 5
 for_window [class="Spotify"] move to workspace 8
 for_window [class="Vivaldi"] move to workspace 9
-for_window [class="Terminal"] move to workspace 10
-for_window [class="gnome-terminal-server"] move to workspace 10
-for_window [class="Gnome-terminal"] move to workspace 10
+for_window [class="urxvt"] move to workspace 10
+for_window [class="URxvt"] move to workspace 10
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -73,7 +75,7 @@ set $right semicolon
 floating_modifier Mod4
 
 # start a terminal
-bindsym Mod4+Return exec i3-sensible-terminal
+bindsym Mod4+Return exec urxvt
 
 # kill focused window
 bindsym Mod4+Shift+q kill

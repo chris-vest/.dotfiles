@@ -1,0 +1,10 @@
+pane	9	1	:zsh	1	:*	1	:/home/crystal	0	zsh	:
+pane	9	1	:zsh	1	:*	2	:/home/crystal	0	watch	:watch kubectl get pods --namespace kube-system
+pane	9	1	:zsh	1	:*	3	:/home/crystal	0	zsh	:
+pane	9	1	:zsh	1	:*	4	:/home/crystal	1	zsh	:
+pane	9	2	:zsh	0	:-	1	:/home/crystal/Downloads	0	vim	:vim /home/crystal/Downloads/vpn-0640a46551be2468c.txt
+pane	9	2	:zsh	0	:-	2	:/tmp	0	vim	:vim /tmp/vpn.md
+pane	9	2	:zsh	0	:-	3	:/home/crystal	1	zsh	:
+window	9	1	1	:*	c5d2,238x56,0,0[238x36,0,0{119x36,0,0,13,118x36,120,0,14},238x19,0,37{119x19,0,37,17,118x19,120,37,18}]
+window	9	2	0	:-	d724,238x56,0,0[238x28,0,0{119x28,0,0,19,118x28,120,0,20},238x27,0,29,21]
+state	9	

@@ -1,0 +1,10 @@
+pane	9	1	:zsh	0	:-	1	:/home/crystal	0	kubectl	:/snap/kubectl/922/kubectl exec -i -t -n kube-system sumologic-fluentd-sumologic-fluentd-rrtf4 /bin/bash
+pane	9	1	:zsh	0	:-	2	:/home/crystal	0	watch	:watch kubectl get pods --namespace kube-system
+pane	9	1	:zsh	0	:-	3	:/home/crystal	1	zsh	:
+pane	9	1	:zsh	0	:-	4	:/home/crystal	0	zsh	:
+pane	9	2	:zsh	0	:	1	:/home/crystal/Nutmeg	1	zsh	:
+pane	9	3	:zsh	1	:*	1	:/home/crystal/Nutmeg	1	zsh	:
+window	9	1	0	:-	c5d2,238x56,0,0[238x36,0,0{119x36,0,0,13,118x36,120,0,14},238x19,0,37{119x19,0,37,17,118x19,120,37,18}]
+window	9	2	0	:	e4e1,238x56,0,0,22
+window	9	3	1	:*	e4e2,238x56,0,0,23
+state	9	

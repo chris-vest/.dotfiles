@@ -1,0 +1,28 @@
+pane	0	1	:zsh	1	:*	1	:/home/crystal/Nutmeg/mesos-calico/terraform	0	zsh	:
+pane	0	1	:zsh	1	:*	2	:/home/crystal	1	zsh	:
+pane	0	2	:zsh	0	:	1	:/home/crystal	1	zsh	:
+pane	0	2	:zsh	0	:	2	:/home/crystal/.config/nvim/bundle	0	zsh	:
+pane	0	3	:zsh	0	:-	1	:/tmp	1	vim	:vim /tmp/vault-notes.md
+pane	3	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	4	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	5	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	6	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	7	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	8	1	:zsh	1	:*	1	:/home/crystal	1	zsh	:
+pane	9	1	:zsh	1	:*	1	:/home/crystal/Nutmeg	0	sudo	:sudo openvpn --config /home/crystal/.openvpn/babel/babel.vpn
+pane	9	1	:zsh	1	:*	2	:/home/crystal	1	kubectl	:/snap/kubectl/922/kubectl exec -i -t ubuntu-949b6989c-pj52k /bin/bash
+pane	9	1	:zsh	1	:*	3	:/home/crystal	0	watch	:watch kubectl get service
+pane	9	1	:zsh	1	:*	4	:/home/crystal	0	kubectl	:/snap/kubectl/922/kubectl logs -f --namespace kube-system external-dns-795b457db5-rtvsf --since 30m
+grep --color -i vault-int
+pane	9	1	:zsh	1	:*	5	:/home/crystal	0	zsh	:
+window	0	1	1	:*	c7f8,238x56,0,0{119x56,0,0,1,118x56,120,0,2}
+window	0	2	0	:	1b13,238x56,0,0[238x28,0,0,3,238x27,0,29,4]
+window	0	3	0	:-	c962,238x56,0,0,5
+window	3	1	1	:*	c963,238x56,0,0,6
+window	4	1	1	:*	c964,238x56,0,0,7
+window	5	1	1	:*	c965,238x56,0,0,8
+window	6	1	1	:*	c966,238x56,0,0,9
+window	7	1	1	:*	64df,238x56,0,0,10
+window	8	1	1	:*	64e0,238x56,0,0,11
+window	9	1	1	:*	cb29,238x56,0,0[238x4,0,0,12,238x26,0,5{119x26,0,5,14,118x26,120,5,15},238x24,0,32{119x24,0,32,13,118x24,120,32,16}]
+state	9	8
