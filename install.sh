@@ -229,7 +229,8 @@ install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
 	export GOPATH="/home/$USER/go"
-	export GO_SRC=/usr/local/go
+	# export GO_SRC=/usr/local/go
+	export PATH=$PATH:/usr/local/go/bin
 
 	# if we are passing the version
 	if [[ ! -z "$1" ]]; then
@@ -251,59 +252,59 @@ install_golang() {
 	local user="$USER"
 	# rebuild stdlib for faster builds
 	sudo chown -R "${user}" /usr/local/go/pkg
-	CGO_ENABLED=0 /usr/local/go/bin/go install -a -installsuffix cgo std
+	CGO_ENABLED=0 go install -a -installsuffix cgo std
 	)
 
 	# get commandline tools
 	(
 	set -x
 	set +e
-	/usr/local/go/bin/go get github.com/golang/lint/golint
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/cover
-	/usr/local/go/bin/go get golang.org/x/review/git-codereview
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/gorename
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/guru
+	go get github.com/golang/lint/golint
+	go get golang.org/x/tools/cmd/cover
+	go get golang.org/x/review/git-codereview
+	go get golang.org/x/tools/cmd/goimports
+	go get golang.org/x/tools/cmd/gorename
+	go get golang.org/x/tools/cmd/guru
 
-	/usr/local/go/bin/go get github.com/genuinetools/amicontained
-	/usr/local/go/bin/go get github.com/genuinetools/apk-file
-	/usr/local/go/bin/go get github.com/genuinetools/audit
-	/usr/local/go/bin/go get github.com/genuinetools/bpfd
-	/usr/local/go/bin/go get github.com/genuinetools/bpfps
-	/usr/local/go/bin/go get github.com/genuinetools/certok
-	/usr/local/go/bin/go get github.com/genuinetools/netns
-	/usr/local/go/bin/go get github.com/genuinetools/pepper
-	/usr/local/go/bin/go get github.com/genuinetools/reg
-	/usr/local/go/bin/go get github.com/genuinetools/udict
-	/usr/local/go/bin/go get github.com/genuinetools/weather
+	go get github.com/genuinetools/amicontained
+	go get github.com/genuinetools/apk-file
+	go get github.com/genuinetools/audit
+	go get github.com/genuinetools/bpfd
+	go get github.com/genuinetools/bpfps
+	go get github.com/genuinetools/certok
+	go get github.com/genuinetools/netns
+	go get github.com/genuinetools/pepper
+	go get github.com/genuinetools/reg
+	go get github.com/genuinetools/udict
+	go get github.com/genuinetools/weather
 
-	/usr/local/go/bin/go get github.com/axw/gocov/gocov
-	/usr/local/go/bin/go get honnef.co/go/tools/cmd/staticcheck
+	go get github.com/axw/gocov/gocov
+	go get honnef.co/go/tools/cmd/staticcheck
 
 	# get dependencies for vscode-go
-	usr/local/go/bin/go get -u -v github.com/ramya-rao-a/go-outline
-	usr/local/go/bin/go get -u -v github.com/acroca/go-symbols
-	usr/local/go/bin/go get -u -v github.com/mdempsky/gocode
-	usr/local/go/bin/go get -u -v github.com/rogpeppe/godef
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/godoc
-	usr/local/go/bin/go get -u -v github.com/zmb3/gogetdoc
-	usr/local/go/bin/go get -u -v golang.org/x/lint/golint
-	usr/local/go/bin/go get -u -v github.com/fatih/gomodifytags
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/gorename
-	usr/local/go/bin/go get -u -v sourcegraph.com/sqs/goreturns
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/goimports
-	usr/local/go/bin/go get -u -v github.com/cweill/gotests/...
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/guru
-	usr/local/go/bin/go get -u -v github.com/josharian/impl
-	usr/local/go/bin/go get -u -v github.com/haya14busa/goplay/cmd/goplay
-	usr/local/go/bin/go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
-	usr/local/go/bin/go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
-	usr/local/go/bin/go get -u -v github.com/alecthomas/gometalinter
+	go get -u -v github.com/ramya-rao-a/go-outline
+	go get -u -v github.com/acroca/go-symbols
+	go get -u -v github.com/mdempsky/gocode
+	go get -u -v github.com/rogpeppe/godef
+	go get -u -v golang.org/x/tools/cmd/godoc
+	go get -u -v github.com/zmb3/gogetdoc
+	go get -u -v golang.org/x/lint/golint
+	go get -u -v github.com/fatih/gomodifytags
+	go get -u -v golang.org/x/tools/cmd/gorename
+	go get -u -v sourcegraph.com/sqs/goreturns
+	go get -u -v golang.org/x/tools/cmd/goimports
+	go get -u -v github.com/cweill/gotests/...
+	go get -u -v golang.org/x/tools/cmd/guru
+	go get -u -v github.com/josharian/impl
+	go get -u -v github.com/haya14busa/goplay/cmd/goplay
+	go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
+	go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+	go get -u -v github.com/alecthomas/gometalinter
 	curl -L https://git.io/vp6lP | sh
 	gometalinter --install
 	
 	# Stern
-	/usr/local/go/bin/go get -u github.com/kardianos/govendor
+	go get -u github.com/kardianos/govendor
 	mkdir -p $GOPATH/src/github.com/wercker
 	cd $GOPATH/src/github.com/wercker
 	git clone https://github.com/wercker/stern.git && cd stern
@@ -311,9 +312,9 @@ install_golang() {
 	go install
 
 	# Tools for vimgo.
-	/usr/local/go/bin/go get github.com/jstemmer/gotags
-	/usr/local/go/bin/go get github.com/nsf/gocode
-	/usr/local/go/bin/go get github.com/rogpeppe/godef
+	go get github.com/jstemmer/gotags
+	go get github.com/nsf/gocode
+	go get github.com/rogpeppe/godef
 
 	aliases=( genuinetools/contained.af genuinetools/binctr genuinetools/img docker/docker moby/buildkit opencontainers/runc )
 	for project in "${aliases[@]}"; do
@@ -342,8 +343,6 @@ install_golang() {
 
 	# symlink weather binary for motd
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
-
-	echo "export PATH=$PATH:/usr/local/go/bin/" >> $HOME/.bashrc
 }
 
 set_config() {
@@ -420,7 +419,6 @@ main() {
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
 	elif [[ $cmd == "nvim" ]]; then
-		#check_is_sudo
 		setup_vim
 	else
 		usage
