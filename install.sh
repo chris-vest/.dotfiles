@@ -67,7 +67,6 @@ basic_apt() {
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 
-	sudo add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 	sudo add-apt-repository ppa:nathan-renniewaldock/flux
 	sudo add-apt-repository ppa:neovim-ppa/stable
 
@@ -117,6 +116,7 @@ basic_apt() {
 		python3-dev \
 		python3-pip \
 		python3-setuptools \
+		rxvt-unicode-256color \
 		ssh \
 		strace \
 		sudo \
@@ -146,7 +146,7 @@ basic_apt() {
 
 oh_my_zsh() {
 	wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-	chsh -s `which zsh`
+	sudo chsh -s `which zsh`
 }
 
 setup_git() {
@@ -174,16 +174,6 @@ setup_vim() {
 	git clone --recursive https://github.com/chris-vest/.vim.git nvim
 	cd nvim
 	git submodule update --init
-}
-
-install_1password() {
-	arm=$(dpkg --print-architecture)
-	curl -o /tmp/op.zip https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/op_linux_${arm}_v0.5.5.zip
-	pushd /tmp
-	unzip /tmp/op.zip
-	chmod u+x /tmp/op
-	sudo mv /tmp/op /usr/local/bin/
-	popd
 }
 
 install_light() {
@@ -415,8 +405,6 @@ main() {
 		setup_sudo
 	elif [[ $cmd == "install_work" ]]; then
 		check_is_sudo
-		install_golang "$2"
-		install_1password
 		install_light
 		install_vault
 		install_terraform
