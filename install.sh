@@ -206,7 +206,7 @@ install_terraform() {
 }
 
 install_vscodium() {
-	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.32.1/vscodium_1.32.1-1552067474_amd64.deb
+	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.34.0/vscodium_1.34.0-1558029460_amd64.deb
 	sudo apt install -y /tmp/vscodium.deb
 }
 
@@ -417,11 +417,11 @@ main() {
 		install_golang "$2"
 	elif [[ $cmd == "oh_my_zsh" ]]; then
 		oh_my_zsh
+	elif [[ $cmd == "set_config" ]]; then
+		set_config
 	elif [[ $cmd == "nvim" ]]; then
 		#check_is_sudo
 		setup_vim
-	elif [[ $cmd == "set_config" ]]; then
-		set_config
 	else
 		usage
 	fi
