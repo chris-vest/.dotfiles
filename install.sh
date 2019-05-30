@@ -410,9 +410,8 @@ main() {
 		basic_apt
 		setup_sudo
 	elif [[ $cmd == "tools" ]]; then
-		check_is_sudo
 		install_light
-		install_vault
+		# install_vault
 		install_terraform
 		install_gcp
 		kubernetes
