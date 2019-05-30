@@ -412,7 +412,7 @@ main() {
 	elif [[ $cmd == "install_vscodium" ]]; then
 		install_vscodium
 	elif [[ $cmd == "golang" ]]; then
-		get_user
+		# get_user
 		install_golang "$2"
 	elif [[ $cmd == "oh_my_zsh" ]]; then
 		oh_my_zsh
