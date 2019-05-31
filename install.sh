@@ -75,6 +75,7 @@ basic_apt() {
 
 	sudo apt install -y \
 		adduser \
+		alsa-utils \
 		automake \
 		bash-completion \
 		bc \
@@ -82,8 +83,9 @@ basic_apt() {
 		ca-certificates \
 		coreutils \
 		curl \
-		docker.io \
 		dnsutils \
+		docker.io \
+		feh \
 		file \
 		findutils \
 		fluxgui \
@@ -97,6 +99,8 @@ basic_apt() {
 		gzip \
 		hostname \
 		i3 \
+		i3lock \
+		i3status \
 		indent \
 		iptables \
 		jq \
@@ -108,8 +112,8 @@ basic_apt() {
 		make \
 		mount \
 		nautilus-dropbox \
-		net-tools \
 		neovim \
+		net-tools \
 		openvpn \
 		python-dev \
 		python-pip \
@@ -117,14 +121,19 @@ basic_apt() {
 		python3-pip \
 		python3-setuptools \
 		rxvt-unicode-256color \
+		scrot \
 		ssh \
 		strace \
+		suckless-tools \
 		sudo \
 		tar \
 		tmux \
 		tree \
 		tzdata \
 		unzip \
+		usbmuxd \
+		xclip \
+		xcompmgr \
 		xss-lock \
 		xz-utils \
 		zip \
