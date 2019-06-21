@@ -140,7 +140,6 @@ basic_apt() {
 		xz-utils \
 		zip \
 		zsh \
-		zsh-syntax-highlighting \
 		--no-install-recommends
 
 	pip3 install -U \
@@ -387,6 +386,7 @@ set_config() {
 	cp .oh-my-zsh/custom/themes/crystal.zsh-theme ~/.oh-my-zsh/custom/themes/crystal.zsh-theme
 	cp .zshrc ~/
 	git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 }
 
 kubernetes() {
