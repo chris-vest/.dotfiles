@@ -83,8 +83,9 @@ basic_apt() {
 		ca-certificates \
 		coreutils \
 		curl \
-		docker.io \
+		dmenu \
 		dnsutils \
+		docker.io \
 		file \
 		findutils \
 		fluxgui \
@@ -98,6 +99,7 @@ basic_apt() {
 		gzip \
 		hostname \
 		i3 \
+		i3status \
 		indent \
 		iptables \
 		jq \
@@ -109,14 +111,15 @@ basic_apt() {
 		make \
 		mount \
 		nautilus-dropbox \
-		net-tools \
 		neovim \
+		net-tools \
 		openvpn \
 		python-dev \
 		python-pip \
 		python3-dev \
 		python3-pip \
 		python3-setuptools \
+		shellcheck \
 		ssh \
 		strace \
 		sudo \
@@ -306,14 +309,6 @@ install_golang() {
 	usr/local/go/bin/go get -u -v github.com/alecthomas/gometalinter
 	curl -L https://git.io/vp6lP | sh
 	gometalinter --install
-	
-	# Stern
-	/usr/local/go/bin/go get -u github.com/kardianos/govendor
-	mkdir -p $GOPATH/src/github.com/wercker
-	cd $GOPATH/src/github.com/wercker
-	git clone https://github.com/wercker/stern.git && cd stern
-	govendor sync
-	go install
 
 	# Tools for vimgo.
 	/usr/local/go/bin/go get github.com/jstemmer/gotags
@@ -347,8 +342,6 @@ install_golang() {
 
 	# symlink weather binary for motd
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
-
-	echo "export PATH=$PATH:/usr/local/go/bin/" >> $HOME/.bashrc
 }
 
 set_config() {
@@ -421,7 +414,6 @@ main() {
 	elif [[ $cmd == "oh_my_zsh" ]]; then
 		oh_my_zsh
 	elif [[ $cmd == "nvim" ]]; then
-		#check_is_sudo
 		setup_vim
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
