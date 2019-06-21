@@ -67,7 +67,6 @@ basic_apt() {
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 
-	sudo add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 	sudo add-apt-repository ppa:nathan-renniewaldock/flux
 	sudo add-apt-repository ppa:neovim-ppa/stable
 
@@ -76,6 +75,7 @@ basic_apt() {
 
 	sudo apt install -y \
 		adduser \
+		alsa-utils \
 		automake \
 		bash-completion \
 		bc \
@@ -86,6 +86,7 @@ basic_apt() {
 		dmenu \
 		dnsutils \
 		docker.io \
+		feh \
 		file \
 		findutils \
 		fluxgui \
@@ -99,6 +100,7 @@ basic_apt() {
 		gzip \
 		hostname \
 		i3 \
+		i3lock \
 		i3status \
 		indent \
 		iptables \
@@ -120,14 +122,20 @@ basic_apt() {
 		python3-pip \
 		python3-setuptools \
 		shellcheck \
+		rxvt-unicode-256color \
+		scrot \
 		ssh \
 		strace \
+		suckless-tools \
 		sudo \
 		tar \
 		tmux \
 		tree \
 		tzdata \
 		unzip \
+		usbmuxd \
+		xclip \
+		xcompmgr \
 		xss-lock \
 		xz-utils \
 		zip \
@@ -147,9 +155,9 @@ basic_apt() {
 		pynvim
 }
 
-oh_my_zsh() {
+zsh() {
 	wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-	chsh -s `which zsh`
+	sudo chsh -s `which zsh`
 }
 
 setup_git() {
@@ -172,16 +180,11 @@ setup_vim() {
 	sudo update-alternatives --config vim
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
 	sudo update-alternatives --config editor
-}
 
-install_1password() {
-	arm=$(dpkg --print-architecture)
-	curl -o /tmp/op.zip https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/op_linux_${arm}_v0.5.5.zip
-	pushd /tmp
-	unzip /tmp/op.zip
-	chmod u+x /tmp/op
-	sudo mv /tmp/op /usr/local/bin/
-	popd
+	cd ${HOME}/.config
+	git clone --recursive https://github.com/chris-vest/.vim.git nvim
+	cd nvim
+	git submodule update --init
 }
 
 install_light() {
@@ -214,7 +217,7 @@ install_terraform() {
 }
 
 install_vscodium() {
-	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.32.1/vscodium_1.32.1-1552067474_amd64.deb
+	curl -o /tmp/vscodium.deb https://github.com/VSCodium/vscodium/releases/download/1.34.0/vscodium_1.34.0-1558029460_amd64.deb
 	sudo apt install -y /tmp/vscodium.deb
 }
 
@@ -229,7 +232,7 @@ install_gcp() {
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 	# Update the package list and install the Cloud SDK
-	sudo apt-get update && sudo apt-get install google-cloud-sdk
+	sudo apt-get update && sudo apt-get -y install google-cloud-sdk
 }
 
 # install/update golang from source
@@ -237,7 +240,8 @@ install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
 	export GOPATH="/home/$USER/go"
-	export GO_SRC=/usr/local/go
+	# export GO_SRC=/usr/local/go
+	export PATH=$PATH:/usr/local/go/bin
 
 	# if we are passing the version
 	if [[ ! -z "$1" ]]; then
@@ -259,61 +263,69 @@ install_golang() {
 	local user="$USER"
 	# rebuild stdlib for faster builds
 	sudo chown -R "${user}" /usr/local/go/pkg
-	CGO_ENABLED=0 /usr/local/go/bin/go install -a -installsuffix cgo std
+	CGO_ENABLED=0 go install -a -installsuffix cgo std
 	)
 
 	# get commandline tools
 	(
 	set -x
 	set +e
-	/usr/local/go/bin/go get github.com/golang/lint/golint
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/cover
-	/usr/local/go/bin/go get golang.org/x/review/git-codereview
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/gorename
-	/usr/local/go/bin/go get golang.org/x/tools/cmd/guru
+	go get github.com/golang/lint/golint
+	go get golang.org/x/tools/cmd/cover
+	go get golang.org/x/review/git-codereview
+	go get golang.org/x/tools/cmd/goimports
+	go get golang.org/x/tools/cmd/gorename
+	go get golang.org/x/tools/cmd/guru
 
-	/usr/local/go/bin/go get github.com/genuinetools/amicontained
-	/usr/local/go/bin/go get github.com/genuinetools/apk-file
-	/usr/local/go/bin/go get github.com/genuinetools/audit
-	/usr/local/go/bin/go get github.com/genuinetools/bpfd
-	/usr/local/go/bin/go get github.com/genuinetools/bpfps
-	/usr/local/go/bin/go get github.com/genuinetools/certok
-	/usr/local/go/bin/go get github.com/genuinetools/netns
-	/usr/local/go/bin/go get github.com/genuinetools/pepper
-	/usr/local/go/bin/go get github.com/genuinetools/reg
-	/usr/local/go/bin/go get github.com/genuinetools/udict
-	/usr/local/go/bin/go get github.com/genuinetools/weather
+	go get github.com/genuinetools/amicontained
+	go get github.com/genuinetools/apk-file
+	go get github.com/genuinetools/audit
+	go get github.com/genuinetools/bpfd
+	go get github.com/genuinetools/bpfps
+	go get github.com/genuinetools/certok
+	go get github.com/genuinetools/netns
+	go get github.com/genuinetools/pepper
+	go get github.com/genuinetools/reg
+	go get github.com/genuinetools/udict
+	go get github.com/genuinetools/weather
 
-	/usr/local/go/bin/go get github.com/axw/gocov/gocov
-	/usr/local/go/bin/go get honnef.co/go/tools/cmd/staticcheck
+	go get github.com/axw/gocov/gocov
+	go get honnef.co/go/tools/cmd/staticcheck
 
 	# get dependencies for vscode-go
-	usr/local/go/bin/go get -u -v github.com/ramya-rao-a/go-outline
-	usr/local/go/bin/go get -u -v github.com/acroca/go-symbols
-	usr/local/go/bin/go get -u -v github.com/mdempsky/gocode
-	usr/local/go/bin/go get -u -v github.com/rogpeppe/godef
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/godoc
-	usr/local/go/bin/go get -u -v github.com/zmb3/gogetdoc
-	usr/local/go/bin/go get -u -v golang.org/x/lint/golint
-	usr/local/go/bin/go get -u -v github.com/fatih/gomodifytags
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/gorename
-	usr/local/go/bin/go get -u -v sourcegraph.com/sqs/goreturns
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/goimports
-	usr/local/go/bin/go get -u -v github.com/cweill/gotests/...
-	usr/local/go/bin/go get -u -v golang.org/x/tools/cmd/guru
-	usr/local/go/bin/go get -u -v github.com/josharian/impl
-	usr/local/go/bin/go get -u -v github.com/haya14busa/goplay/cmd/goplay
-	usr/local/go/bin/go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
-	usr/local/go/bin/go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
-	usr/local/go/bin/go get -u -v github.com/alecthomas/gometalinter
+	go get -u -v github.com/ramya-rao-a/go-outline
+	go get -u -v github.com/acroca/go-symbols
+	go get -u -v github.com/mdempsky/gocode
+	go get -u -v github.com/rogpeppe/godef
+	go get -u -v golang.org/x/tools/cmd/godoc
+	go get -u -v github.com/zmb3/gogetdoc
+	go get -u -v golang.org/x/lint/golint
+	go get -u -v github.com/fatih/gomodifytags
+	go get -u -v golang.org/x/tools/cmd/gorename
+	go get -u -v sourcegraph.com/sqs/goreturns
+	go get -u -v golang.org/x/tools/cmd/goimports
+	go get -u -v github.com/cweill/gotests/...
+	go get -u -v golang.org/x/tools/cmd/guru
+	go get -u -v github.com/josharian/impl
+	go get -u -v github.com/haya14busa/goplay/cmd/goplay
+	go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
+	go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+	go get -u -v github.com/alecthomas/gometalinter
 	curl -L https://git.io/vp6lP | sh
 	gometalinter --install
+	
+	# Stern
+	go get -u github.com/kardianos/govendor
+	mkdir -p $GOPATH/src/github.com/wercker
+	cd $GOPATH/src/github.com/wercker
+	git clone https://github.com/wercker/stern.git && cd stern
+	govendor sync
+	go install
 
 	# Tools for vimgo.
-	/usr/local/go/bin/go get github.com/jstemmer/gotags
-	/usr/local/go/bin/go get github.com/nsf/gocode
-	/usr/local/go/bin/go get github.com/rogpeppe/godef
+	go get github.com/jstemmer/gotags
+	go get github.com/nsf/gocode
+	go get github.com/rogpeppe/godef
 
 	aliases=( genuinetools/contained.af genuinetools/binctr genuinetools/img docker/docker moby/buildkit opencontainers/runc )
 	for project in "${aliases[@]}"; do
@@ -344,6 +356,11 @@ install_golang() {
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
 }
 
+# install rust
+install_rust() {
+	curl https://sh.rustup.rs -sSf | sh
+}
+
 set_config() {
 	# add aliases for dotfiles
 	# for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git"); do
@@ -352,16 +369,20 @@ set_config() {
 	# done
 
 	mkdir -p .config/dunst || :
-	mkdir -p .config/nvim || :
+
 	mkdir -p .oh-my-zsh || :
 
-	cp -R .config/ ~/
+	cp -R .config/dunst ~/.config/
 
 	cp -R .i3 ~/
 
+	cp -R .urxvt ~/
+
 	cp .tmux.conf ~/
 
-	cp -R .oh-my-zsh ~/
+	cp .Xresources ~/
+
+	cp .oh-my-zsh/custom/themes/crystal.zsh-theme ~/.oh-my-zsh/custom/themes/crystal.zsh-theme
 	cp .zshrc ~/
 }
 
@@ -375,12 +396,14 @@ kubernetes() {
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for an Ubuntu laptop\\n"
 	echo "Usage:"
-	echo "  basic_apt                           - setup sources & install base pkgs"
-	echo "  install_vscodium                    - install vscodium"
-	echo "  install_work                        - bits and pieces for work"
-	echo "  oh_my_zsh	                        - install oh-my-zsh; change shell to ZSH"
-	echo "  nvim                                - install vim specific dotfiles"
+	echo "  base                	            - setup sources & install base pkgs"
+	echo "  tools		                        - bits and pieces for work"
+	echo "  vscodium    		                - install vscodium"
+	echo "  golang	    		                - install golang"
+	echo "  rust	    		                - install golang"
+	echo "  zsh	      		                    - install oh-my-zsh; change shell to ZSH"
 	echo "  set_config                          - set configuration"
+	echo "  nvim                                - install vim specific dotfiles; run this after set_config!"
 }
 
 main() {
@@ -391,30 +414,30 @@ main() {
 		exit 1
 	fi
 
-	if [[ $cmd == "basic_apt" ]]; then
+	if [[ $cmd == "base" ]]; then
 		check_is_sudo
 		get_user
 		setup_git
 		basic_apt
 		setup_sudo
-	elif [[ $cmd == "install_work" ]]; then
-		check_is_sudo
-		install_golang "$2"
-		install_1password
+	elif [[ $cmd == "tools" ]]; then
 		install_light
-		install_vault
+		# install_vault
 		install_terraform
 		install_gcp
 		kubernetes
-	elif [[ $cmd == "install_vscodium" ]]; then
+	elif [[ $cmd == "vscodium" ]]; then
 		install_vscodium
 	elif [[ $cmd == "golang" ]]; then
-		get_user
 		install_golang "$2"
 	elif [[ $cmd == "oh_my_zsh" ]]; then
 		oh_my_zsh
 	elif [[ $cmd == "nvim" ]]; then
 		setup_vim
+	elif [[ $cmd == "rust" ]]; then
+		install_rust
+	elif [[ $cmd == "zsh" ]]; then
+		zsh
 	elif [[ $cmd == "set_config" ]]; then
 		set_config
 	else
