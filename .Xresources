@@ -40,7 +40,7 @@ Xcursor.size: 16
 #define S_cyan          #2aa198
 #define S_green         #859900
 
-URxvt*background: #3A3A3A
+URxvt*background: #303030
 
 !-- Xft settings -- !
 !! Xft.dpi:        144
@@ -57,7 +57,8 @@ URxvt.cursorUnderline: 0
 URxvt*cursorColor: S_cyan
 
 ! -- Fonts -- !
-URxvt.font: xft:Inconsolata:pixelsize=14:antialias=true:hinting=full,xft:Symbola:pixelsize=14:antialias=true:hinting=full
+!! URxvt.font: xft:Inconsolata:pixelsize=14:antialias=true:hinting=full,xft:Symbola:pixelsize=14:antialias=true:hinting=full
+URxvt*font: xft:Monospace:pixelsize=14:antialias=true:hinting=full
 !! URxvt.boldFont: xft:Inconsolata:style=bold:pixelsize=27:antialias=true:hinting=full,xft:Symbola:pixelsize=19:antialias=true:hinting=full
 
 !! scroll
