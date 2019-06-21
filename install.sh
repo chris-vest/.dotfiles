@@ -140,6 +140,7 @@ basic_apt() {
 		xz-utils \
 		zip \
 		zsh \
+		zsh-syntax-highlighting \
 		--no-install-recommends
 
 	pip3 install -U \
@@ -358,7 +359,7 @@ install_golang() {
 
 # install rust
 install_rust() {
-	curl https://sh.rustup.rs -sSf | sh
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
 set_config() {
@@ -382,8 +383,10 @@ set_config() {
 
 	cp .Xresources ~/
 
+	# ZSH
 	cp .oh-my-zsh/custom/themes/crystal.zsh-theme ~/.oh-my-zsh/custom/themes/crystal.zsh-theme
 	cp .zshrc ~/
+	git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 }
 
 kubernetes() {
@@ -430,8 +433,6 @@ main() {
 		install_vscodium
 	elif [[ $cmd == "golang" ]]; then
 		install_golang "$2"
-	elif [[ $cmd == "oh_my_zsh" ]]; then
-		oh_my_zsh
 	elif [[ $cmd == "nvim" ]]; then
 		setup_vim
 	elif [[ $cmd == "rust" ]]; then
