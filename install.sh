@@ -90,6 +90,7 @@ basic_apt() {
 		file \
 		findutils \
 		fluxgui \
+		fonts-firacode \
 		gcc \
 		git \
 		git-core \
