@@ -10,22 +10,20 @@
 #
 
 ### I3-GNOME SETTINGS
-
+#####
 # exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
-
-# exec_always --no-startup-id gnome-power-manager
 
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # exec --no-startup-id gnome-flashback
-
+#####
 ### I3-GNOME SETTINGS END
 
 # Set background to solid black
 exec --no-startup-id xsetroot -solid "#000000"
 
 # Start network-manager
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 # Start Dunst using custom config
 exec killall -q dunst
@@ -34,10 +32,6 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 # Start Dropbox
 exec killall -q dropbox
 exec --no-startup-id dropbox start
-
-# Start f.lux
-exec killall -q flux
-exec --no-startup-id fluxgui
 
 # Handle screen blanking
 exec --no-startup-id xset -dpms s off s noblank s 0 0 s noexpose
@@ -49,22 +43,19 @@ exec --no-startup-id xset -dpms s off s noblank s 0 0 s noexpose
 # exec dconf write /org/gnome/desktop/interface/cursor-size 9
 
 # Set default workspaces
-for_window [class="KeePassX"] move to workspace 1
+for_window [class="keepassx|Keepassx"] move to workspace 1
 for_window [class="Navigator"] move to workspace 1
 for_window [class="Firefox"] move to workspace 1
-for_window [class="slack"] move to workspace 3
-for_window [class="Slack"] move to workspace 3
+for_window [class="slack|Slack"] move to workspace 3
 for_window [class="VSCodium"] move to workspace 5
 for_window [class="Spotify"] move to workspace 8
 for_window [class="Vivaldi"] move to workspace 9
-for_window [class="urxvt"] move to workspace 10
-for_window [class="URxvt"] move to workspace 10
+for_window [class="urxvt|URxvt"] move to workspace 10
 for_window [class="gsimplecal|Gsimplecal"] floating enable
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# font pango:monospace 8
-font pango:monospace 9
+font pango:monospace 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -253,11 +244,9 @@ bindsym Mod4+Print exec gnome-screenshot -i
 # finds out, if available)
 bar {
         position top
-        #status_command i3status -c /home/crystal/.i3/i3status.conf
-        #status_command exec /usr/local/bin/barista
-        status_command exec /home/crystal/go/src/github.com/chris-vest/barista/crystal_barista
+        status_command exec /home/crystal/.config/barista/crystal_barista
         separator_symbol " | "
-        font pango:monospace 9
+        font pango:monospace 10
 }
 
 #######################################################################

@@ -67,7 +67,6 @@ basic_apt() {
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 
-	sudo add-apt-repository ppa:nathan-renniewaldock/flux
 	sudo add-apt-repository ppa:neovim-ppa/stable
 
 	sudo apt update || true
@@ -90,7 +89,6 @@ basic_apt() {
 		file \
 		findutils \
 		fluxgui \
-		fonts-firacode \
 		gcc \
 		git \
 		git-core \
@@ -122,8 +120,9 @@ basic_apt() {
 		python3-dev \
 		python3-pip \
 		python3-setuptools \
-		shellcheck \
+		redshift \
 		rxvt-unicode-256color \
+		shellcheck \
 		scrot \
 		ssh \
 		strace \
